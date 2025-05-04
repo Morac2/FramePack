@@ -71,12 +71,12 @@ def pad_for_3d_conv(x, kernel_size):
 
 
 def center_down_sample_3d(x, kernel_size):
-    # pt, ph, pw = kernel_size
-    # cp = (pt * ph * pw) // 2
-    # xp = einops.rearrange(x, 'b c (t pt) (h ph) (w pw) -> (pt ph pw) b c t h w', pt=pt, ph=ph, pw=pw)
-    # xc = xp[cp]
-    # return xc
-    return torch.nn.functional.avg_pool3d(x, kernel_size, stride=kernel_size)
+    pt, ph, pw = kernel_size
+    cp = (pt * ph * pw) // 2
+    xp = einops.rearrange(x, 'b c (t pt) (h ph) (w pw) -> (pt ph pw) b c t h w', pt=pt, ph=ph, pw=pw)
+    xc = xp[cp]
+    return xc
+    # return torch.nn.functional.avg_pool3d(x, kernel_size, stride=kernel_size)
 
 
 def get_cu_seqlens(text_mask, img_len):
