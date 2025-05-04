@@ -76,6 +76,7 @@ def center_down_sample_3d(x, kernel_size):
     xp = einops.rearrange(x, 'b c (t pt) (h ph) (w pw) -> (pt ph pw) b c t h w', pt=pt, ph=ph, pw=pw)
     xc = xp[cp]
     return xc
+    # If using https://github.com/pytorch/pytorch/pull/151742, can comment out above and uncomment below
     # return torch.nn.functional.avg_pool3d(x, kernel_size, stride=kernel_size)
 
 
